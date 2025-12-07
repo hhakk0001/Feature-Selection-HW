@@ -28,22 +28,37 @@
 
 ## 對稱不確定性 (Symmetric Uncertainty, SU)
 
+$$
+SU(X, Y) = \frac{2 \times \big(H(X) + H(Y) - H(X, Y)\big)}{H(X) + H(Y)}
+$$
+其中：
+* $H(X)$：屬性 X 的熵
+* $H(Y)$：屬性 Y 的熵
+* $H(X,Y)$：屬性 X 與 Y 的聯合熵
+
 透過 entropy 與 joint entropy 計算互資訊（Mutual Information），再透過正規化使 SU 的值介於 0 到 1，用來評估兩個屬性之間的關聯程度。
 * `SU = 0`: 完全獨立
 * `SU = 1`: 完全相互依賴
 
 ## 適合度 (Goodness)
 
-goodness(subset, data) 同時考量每個特徵與 Class 的相關程度，以及特徵間彼此的冗餘程度，以一個正規化後的適合度量值衡量特徵子集的品質。
-* numerator：衡量特徵集合和 Class 的相關性
-* denominator：衡量特徵彼此之間的冗餘程度（越大代表特徵間越相似）
+$$
+Goodness(S) = \frac{\sum_{x_i \in S} SU(x_i, C)}{\sqrt{\sum_{x_i \in S}\sum_{x_j \in S} SU(x_i, x_j)}}
+$$
+其中：
+* $S$：特徵子集（feature subset）
+* $C$：類別屬性（Class）
+
+goodness 同時考量每個特徵與 Class 的相關程度，以及特徵間彼此的冗餘程度，以一個正規化後的適合度量值衡量特徵子集的品質。
+* 分子：衡量特徵集合和 Class 的相關性
+* 分母：衡量特徵彼此之間的冗餘程度（越大代表特徵間越相似）
 
 Goodness 越高，代表該特徵子集與 Class 越相關，且每個特徵之間的關聯性低。
 
 
 # 執行環境與方式
 
-Python 3.8 或以上，
+Python 3.8 或以上環境，
 直接執行 .py 或 .ipynb 檔案即可。 
 
 # 未來可增加部分
