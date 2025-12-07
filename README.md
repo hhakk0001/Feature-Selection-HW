@@ -28,9 +28,7 @@
 
 ## 對稱不確定性 (Symmetric Uncertainty, SU)
 
-$$
-SU(X, Y) = \frac{2 \times \big(H(X) + H(Y) - H(X, Y)\big)}{H(X) + H(Y)}
-$$
+$$SU(X, Y) = \frac{2 \times \big(H(X) + H(Y) - H(X, Y)\big)}{H(X) + H(Y)}$$
 其中：
 * $H(X)$：屬性 X 的熵
 * $H(Y)$：屬性 Y 的熵
@@ -42,9 +40,7 @@ $$
 
 ## 適合度 (Goodness)
 
-$$
-Goodness(S) = \frac{\sum_{x_i \in S} SU(x_i, C)}{\sqrt{\sum_{x_i \in S}\sum_{x_j \in S} SU(x_i, x_j)}}
-$$
+$$Goodness(S) = \frac{\sum_{x_i \in S} SU(x_i, C)}{\sqrt{\sum_{x_i \in S}\sum_{x_j \in S} SU(x_i, x_j)}}$$
 其中：
 * $S$：特徵子集（feature subset）
 * $C$：類別屬性（Class）
