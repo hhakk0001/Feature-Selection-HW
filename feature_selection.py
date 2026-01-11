@@ -1,4 +1,5 @@
 import math  # 計算對數用
+import matplotlib.pyplot as plt  # 繪製圖表用
 
 # 0~9代表屬性，其中Attribute[0] = Class 是我們要比較的對象
 Attribute = [
@@ -233,6 +234,10 @@ f_remaining_attributes = [
 f_best_goodness = 0.0
 f_iteration = 0
 
+# 紀錄每輪更新後的 best_goodness(圖表用)
+f_gn_history = []
+f_iter_history = []
+
 while True:
     best_goodness_in_cycle = 0.0
     f_iteration = f_iteration + 1
@@ -255,6 +260,10 @@ while True:
     f_best_goodness = best_goodness_in_cycle
     f_remaining_attributes.remove(feature_to_add)
 
+    # 紀錄該輪的迭代結果(圖表用)
+    f_gn_history.append(f_best_goodness)
+    f_iter_history.append(f_iteration)
+
     print(f"第{f_iteration}次循環:")
     print(f"Selected Features: {f_feature_subset}")
     print(f"Best Goodness: {f_best_goodness:}")
@@ -265,7 +274,6 @@ print("Forward Selection result:", f_feature_subset, ", Gn: ", f_best_goodness)
 # Backward Selection
 
 print("===== Backward Selection=====")
-
 
 b_feature_subset = [
     "age",
@@ -281,6 +289,9 @@ b_feature_subset = [
 b_best_goodness = goodness(b_feature_subset, patient_list)
 b_iteration = 0
 
+# 紀錄每輪更新後的 best_goodness(圖表用)
+b_gn_history = []
+b_iter_history = []
 
 while True:
     best_goodness_in_cycle = 0.0
@@ -304,8 +315,27 @@ while True:
     b_feature_subset.remove(feature_to_remove)
     b_best_goodness = best_goodness_in_cycle
 
+    # 紀錄該輪的迭代結果(圖表用)
+    b_gn_history.append(b_best_goodness)
+    b_iter_history.append(b_iteration)
+
     print(f"第{b_iteration}次循環:")
     print(f"Selected Features: {b_feature_subset}")
     print(f"Best Goodness: {b_best_goodness:}")
 
 print("Backward Selection result:", b_feature_subset, ",Gn: ", b_best_goodness)
+
+
+# 繪製圖表
+plt.figure()
+plt.plot(f_iter_history, f_gn_history, marker="o", label="Forward")
+plt.plot(b_iter_history, b_gn_history, marker="o", label="Backward")
+plt.title("Goodness over Iterations")
+plt.xlabel("Iteration")
+plt.ylabel("Best Goodness per Iteration")
+max_iter = max(max(f_iter_history), max(b_iter_history))
+plt.xticks(range(0, max_iter + 1, 1))
+
+plt.grid(True)
+plt.legend()
+plt.show()
